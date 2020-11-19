@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include<ncurses.h>
 
+int righe, colonne;
+
 void create_player(void)
 {
     char nome[100];
@@ -18,7 +20,10 @@ void riempi_tabellone(void)
 void init_screen(void)
 {
     initscr();
-    printw("Battaglia navale v.0.0.1");
+    getmaxyx(stdscr, righe, colonne); /* ottieni la dimensione del terminale */
+    keypad(stdscr, TRUE);			/* permetti uso F1-F12 e tasti freccia */
+    noecho();						/* no keyboard echo per l'input utente */
+    mvprintw(righe/2, (colonne/2) - 15, "Battaglia navale v.0.0.1");
     refresh();
 }
 
