@@ -2,10 +2,10 @@ CFLAGS = -Wall
 
 SRCS := $(wildcard *.c)
 
-main: main.c
+battaglia_navale: main.c
 	$(CC) $(CFLAGS) -lncurses main.c -o $@
 
-all: main
+all: battaglia_navale
 
 clean:
-	rm main
+	rm battaglia_navale
