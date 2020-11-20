@@ -40,15 +40,15 @@ void riempi_tabellone(void)
     }
 }
 
-void cacciatorpediniere()
+void nave_orizzontale(char s[])
 {
     int r, c;
     r = (rand() % NUM_RIGHE) + ROW_OFFSET;
     // prendi riga a caso
-    c = (rand() % (NUM_COL - 3)) + COL_OFFSET;
+    c = (rand() % (NUM_COL - strlen(s))) + COL_OFFSET;
     // rendi numero pari
     c = (c % 2 == 0)? c : c + 1;
-    mvprintw(r, c, "X X");
+    mvprintw(r, c, s);
 }
 
 void disegna_navi()
@@ -56,16 +56,12 @@ void disegna_navi()
     /* disegna nave da 2 */
     srand(time(NULL));
 
-    cacciatorpediniere();
-    cacciatorpediniere();
-    cacciatorpediniere();
+    nave_orizzontale("X X");
+    nave_orizzontale("X X");
+    nave_orizzontale("X X");
 
-    /* disegna nave da 4 */
-    /*
-    r = (rand()%DIM_TAB) + row_offset;
-    c = (rand()%(DIM_TAB - 8)) + col_offset;
-    mvprintw(r, c, "X X X X");
-    */
+    nave_orizzontale("X X X");
+    nave_orizzontale("X X X X");
 
     /* disegna nave da 3 in verticale */
     /*
