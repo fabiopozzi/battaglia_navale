@@ -2,8 +2,13 @@
 #include<string.h>
 #include<stdlib.h>
 #include<ncurses.h>
+#include<time.h>
 
 #define MSG_INIZIALE "Battaglia navale v 0.0.1"
+#define NUM_RIGHE 10
+#define NUM_COL 20
+#define ROW_OFFSET 5
+#define COL_OFFSET 6
 
 int righe, colonne;
 
@@ -18,22 +23,58 @@ void riempi_tabellone(void)
 {
     int r, c;
     char lettera[] = "0";
-    const int dim_tab = 10;
     const int off_iniz_righe = 5;
-    const int off_iniz_col = 5;
+    const int off_iniz_col = 6;
 
     clear(); // pulisci schermo
     /* intestazione colonne */
-    for (c = 0; c < dim_tab; c++){
+    for (c = 0; c < NUM_RIGHE; c++){
         mvprintw(off_iniz_righe - 1, off_iniz_col + (2 * c), lettera);
         lettera[0]++;
     }
     /* intestazione righe */
     lettera[0] = 'a';
-    for (r = 0; r < dim_tab; r++){
+    for (r = 0; r < NUM_RIGHE; r++){
         mvprintw(off_iniz_righe + r, off_iniz_righe - 1, lettera);
         lettera[0]++;
     }
+}
+
+void cacciatorpediniere()
+{
+    int r, c;
+    r = (rand() % NUM_RIGHE) + ROW_OFFSET;
+    // prendi riga a caso
+    c = (rand() % (NUM_COL - 3)) + COL_OFFSET;
+    // rendi numero pari
+    c = (c % 2 == 0)? c : c + 1;
+    mvprintw(r, c, "X X");
+}
+
+void disegna_navi()
+{
+    /* disegna nave da 2 */
+    srand(time(NULL));
+
+    cacciatorpediniere();
+    cacciatorpediniere();
+    cacciatorpediniere();
+
+    /* disegna nave da 4 */
+    /*
+    r = (rand()%DIM_TAB) + row_offset;
+    c = (rand()%(DIM_TAB - 8)) + col_offset;
+    mvprintw(r, c, "X X X X");
+    */
+
+    /* disegna nave da 3 in verticale */
+    /*
+    r = (rand()%(DIM_TAB - 3)) + row_offset;
+    c = (rand()%DIM_TAB) + col_offset;
+    mvprintw(r, c, "X");
+    mvprintw(r + 1, c, "X");
+    mvprintw(r + 2, c, "X");
+    */
 }
 
 void init_screen(void)
@@ -53,6 +94,7 @@ int main(int argc, char *argv[])
     getch();
     //create_player();
     riempi_tabellone();
+    disegna_navi();
     //game_loop();
 
     getch();
